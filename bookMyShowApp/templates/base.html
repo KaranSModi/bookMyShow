@@ -1,0 +1,1096 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}bookMyShow{% endblock title %}</title>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{% static 'js/ajaxFunctions.js' %}?ver=1121323223213232311132322"></script>
+</head>
+
+<style>
+    #input {
+        width: 50%;
+    }
+
+    .sidenav {
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        background-color: #111;
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+    }
+
+    .sidenav a {
+        padding: 4px 4px 4px 16px;
+        text-decoration: none;
+        font-size: 15px;
+        color: #818181;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .sidenav a:hover {
+        color: #f1f1f1;
+    }
+
+    .sidenav .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 15px;
+        margin-left: 50px;
+    }
+
+    @media screen and (max-height: 450px) {
+        .sidenav {
+            padding-top: 15px;
+        }
+
+        .sidenav a {
+            font-size: 18px;
+        }
+    }
+
+    .chatbox {
+        position: fixed;
+        bottom: 0;
+        right: 30px;
+        width: 300px;
+        height: 400px;
+        background-color: #fff;
+        font-family: 'Lato', sans-serif;
+
+        -webkit-transition: all 600ms cubic-bezier(0.19, 1, 0.22, 1);
+        transition: all 600ms cubic-bezier(0.19, 1, 0.22, 1);
+        z-index: 999;
+        display: -webkit-flex;
+        display: flex;
+
+        -webkit-flex-direction: column;
+        flex-direction: column;
+    }
+
+    .chatbox--tray {
+        bottom: -350px;
+    }
+
+    .chatbox--closed {
+        bottom: -400px;
+    }
+
+    .chatbox .form-control:focus {
+        border-color: #1f2836;
+    }
+
+    .chatbox__title,
+    .chatbox__body {
+        border-bottom: none;
+    }
+
+    .chatbox__title {
+        min-height: 50px;
+        padding-right: 10px;
+        background-color: #1f2836cc;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        cursor: pointer;
+
+        display: -webkit-flex;
+        display: flex;
+
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+    .chatbox__title h5 {
+        height: 50px;
+        margin: 0 0 0 15px;
+        line-height: 50px;
+        position: relative;
+        padding-left: 20px;
+
+        -webkit-flex-grow: 1;
+        flex-grow: 1;
+    }
+
+    .chatbox__title h5 a {
+        color: #fff;
+        max-width: 195px;
+        display: inline-block;
+        text-decoration: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .chatbox__title h5:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 12px;
+        height: 12px;
+        background: #4CAF50;
+        border-radius: 6px;
+
+        -webkit-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+    .chatbox__title__tray,
+    .chatbox__title__close {
+        width: 24px;
+        height: 24px;
+        outline: 0;
+        border: none;
+        background-color: transparent;
+        opacity: 0.5;
+        cursor: pointer;
+
+        -webkit-transition: opacity 200ms;
+        transition: opacity 200ms;
+    }
+
+    .chatbox__title__tray:hover,
+    .chatbox__title__close:hover {
+        opacity: 1;
+    }
+
+    .chatbox__title__tray span {
+        width: 12px;
+        height: 12px;
+        display: inline-block;
+        border-bottom: 2px solid #fff
+    }
+
+    .chatbox__title__close svg {
+        vertical-align: middle;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.2px;
+    }
+
+    .chatbox__body,
+    .chatbox__credentials {
+        padding: 15px;
+        border-top: 0;
+        background-color: #DCDCDC;
+        border-left: 1px solid #ddd;
+        border-right: 1px solid #ddd;
+
+        -webkit-flex-grow: 1;
+        flex-grow: 1;
+    }
+
+    .chatbox__credentials {
+        display: none;
+    }
+
+    .chatbox__credentials .form-control {
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    .chatbox__body {
+        overflow-y: auto;
+    }
+
+    .chatbox__body__message {
+        position: relative;
+    }
+
+    .chatbox__body__message p {
+        padding: 15px;
+        border-radius: 4px;
+        font-size: 14px;
+        background-color: #fff;
+        -webkit-box-shadow: 1px 1px rgba(100, 100, 100, 0.1);
+        box-shadow: 1px 1px rgba(100, 100, 100, 0.1);
+    }
+
+    .chatbox__body__message img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #fcfcfc;
+        position: absolute;
+        top: 15px;
+    }
+
+    .chatbox__body__message--left p {
+        margin-left: 15px;
+        padding-left: 30px;
+        text-align: left;
+        padding-top: 25px;
+    }
+
+    .chatbox__body__message--left img {
+        left: -5px;
+    }
+
+    .chatbox__body__message--right p {
+        margin-right: 15px;
+        padding-right: 30px;
+        text-align: right;
+    }
+
+    .chatbox__body__message--right img {
+        right: -5px;
+    }
+
+    .chatbox__message {
+        padding: 15px;
+        min-height: 50px;
+        outline: 0;
+        resize: none;
+        border: none;
+        font-size: 12px;
+        border: 1px solid #ddd;
+        border-bottom: none;
+        background-color: #fefefe;
+    }
+
+    .chatbox--empty {
+        height: 262px;
+    }
+
+    .chatbox--empty.chatbox--tray {
+        bottom: -212px;
+    }
+
+    .chatbox--empty.chatbox--closed {
+        bottom: -262px;
+    }
+
+    .chatbox--empty .chatbox__body,
+    .chatbox--empty .chatbox__message {
+        display: none;
+    }
+
+    .chatbox--empty .chatbox__credentials {
+        display: block;
+    }
+
+    .chatbox_timing {
+        position: absolute;
+        right: 10px;
+        font-size: 12px;
+        top: 2px;
+    }
+
+    .chatbox_timing ul {
+        padding: 0;
+        margin: 0
+    }
+
+    .chatbox_timing ul li {
+        list-style: none;
+        display: inline-block;
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+
+    .chatbox_timing ul li a {
+        display: block;
+        color: #747474
+    }
+
+    .ul_msg {
+
+
+        padding: 10px !important;
+
+    }
+
+    .chatbox__body__message--right .ul_section_full {
+        margin-right: 15px;
+        padding-right: 30px;
+        text-align: right;
+        border-radius: 4px;
+        font-size: 14px;
+        background-color: #fff;
+        -webkit-box-shadow: 1px 1px rgba(100, 100, 100, 0.1);
+        box-shadow: 1px 1px rgba(100, 100, 100, 0.1);
+        margin-bottom: 15px;
+        padding-bottom: 5px;
+        padding-top: 15px;
+    }
+
+    .chatbox__body__message--left .ul_section_full {
+
+        margin-left: 15px;
+        padding-left: 15px;
+        text-align: left;
+        padding-top: 15px;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        font-size: 14px;
+        background-color: #fff;
+        -webkit-box-shadow: 1px 1px rgba(100, 100, 100, 0.1);
+        box-shadow: 1px 1px rgba(100, 100, 100, 0.1);
+
+    }
+
+    .ul_msg {
+        padding: 0;
+        margin: 0px
+    }
+
+    .ul_msg li {
+        list-style: none;
+        display: block
+    }
+
+    .ul_msg2 {
+        padding: 0;
+        margin: 0px;
+        text-align: right;
+    }
+
+    .ul_msg2 li {
+        list-style: none;
+        display: inline-block;
+        margin-right: 15px;
+    }
+
+    .chatbox__body__message--right .chatbox_timing {
+        position: absolute;
+        left: 10px;
+        font-size: 12px;
+        top: 2px;
+    }
+
+    .chatbox__body__message--right .ul_msg2 {
+        text-align: left
+    }
+
+    .chatbox__body__message--right .ul_msg2 li {
+        list-style: none;
+        display: inline-block;
+        margin-left: 15px;
+        margin-right: 0px
+    }
+
+    .chat_set_height {
+        height: 40px;
+        margin-top: 1px;
+    }
+
+    .chatbox22 .form-control:focus {
+        border-color: #DCDCDC;
+    }
+
+    .width50 {
+        width: 50%;
+        float: left;
+        background: #ECECEC;
+    }
+
+    /*======================Chat Box Ends=====================================================*/
+    /*======================Message=====================================================*/
+    .message_check {
+        padding-top: 10px;
+    }
+
+    .messsade_date {
+        text-align: left;
+        padding-top: 9px;
+    }
+
+    .messsade_date a {
+        color: #000;
+    }
+
+    .padleftright0 {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .message_box_area {
+        color: #000;
+        cursor: pointer;
+    }
+
+    .create_m {
+        border: 1px solid #ccc !important;
+    }
+
+    .fileinput-button {
+        float: left;
+        margin-right: 4px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .fileinput-button {
+        background: none repeat scroll 0 0 #eeeeee;
+        border: 1px solid #e6e6e6;
+        margin-top: 15px;
+    }
+
+    .fileinput-button {
+        float: left;
+        margin-right: 4px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .fileinput-button input {
+        cursor: pointer;
+        direction: ltr;
+        font-size: 23px;
+        margin: 0;
+        opacity: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translate(-300px, 0px) scale(4);
+    }
+
+    .fileupload-buttonbar .btn,
+    .fileupload-buttonbar .toggle {
+        margin-bottom: 5px;
+    }
+
+    .create_m:focus {
+        border-color: #66afe9 !important;
+        outline: 0 !important;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6) !important;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6) !important;
+    }
+
+    .col-lg-3.control-label {
+        text-align: left;
+    }
+</style>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg bg-dark">
+        <div class="container-fluid">
+            <span style="font-size: large;cursor:pointer;color: white;" onclick="openNav()">&#9776;</span>
+            <a class="navbar-brand" href="{% url 'HomePage' %}"><img src="{% static 'images/logo1.png' %}" height="30px"
+                    width="70px"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2 " id="inp" type="search"
+                                placeholder="Search for movies,shows,events" aria-label="Search">
+                        </form>
+                    </li>
+                </ul>
+            </div>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                <ul class="navbar-nav gap-3 ">
+                    <li class="nav-item">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" aria-expanded="false"
+                            style="color: white;" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                            Ahmedabad
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <button id="userAuthButton" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">sign
+                            in</button>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        </div>
+
+    </nav>
+    <div id="mySidenav" class="sidenav">
+
+        <a href=""> <img src="{% static 'images/BMS_logo_new.png' %}" alt="" srcset=""></a>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="{% url 'UserBookingView' %}">My Bookings</a>
+        <a href="#">Account</a>
+        <a href="#">Contact us</a>
+        <a href="#">Get Support</a>
+    </div>
+    <!-- <div class="container px-4 text-center" style="background-color: aquamarine;">
+        <div class="row gx-5 p-1 border bg-light">
+            <div class="col">
+                <li class="list-group-item p-1 border bg-light">Movies</li>
+            </div>
+            <div class="col ">
+                <li class="list-group-item p-1 border bg-light">Events</li>
+            </div>
+            <div class="col">
+                <li class="list-group-item p-1 border bg-ligh">Plays</li>
+            </div>
+            <div class="col">
+                <li class="list-group-item p-1 border bg-ligh">Sports</li>
+            </div>
+            <div class="col">
+                <li class="list-group-item p-1 border bg-ligh">Activitys</li>
+            </div>
+            <div class="col">
+                <li class="list-group-item p-1 border bg-ligh">Buzz</li>
+            </div>
+        </div>
+    </div> -->
+
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Sign In</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" id="registerLoginForm" onsubmit="callUserAuthenticationHandler(this,event)">
+                        {% csrf_token %}
+                        <div class="container px-4 text-center">
+                            <div class="col-md-6">
+                                <div class="input-group mb-3">
+                                    <input type="email" name="Email" class="form-control" placeholder="Email"
+                                        aria-label="Email">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <input type="password" name="Password" class="form-control" placeholder="Password"
+                                        aria-label="Password">
+                                </div>
+                                <button id="muBtn" type="submit" class="btn btn-success" data-bs-dismiss="modal">Sign
+                                    Up</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal 2-->
+    <div class="modal fade modal-lg" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Select Your Location</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="container text-center">
+                        <div class="row gx-5 p-1 border bg-light" style="margin-top: 1rem;">
+                            <div class="col-sm-2">
+                                <img onclick="callChangeImage(this.id)" id="BOM" src="{% static 'images/mumbai.png' %}"
+                                    alt="">
+                                <div style="font-size: small;color: black;font-weight:400;">
+                                    Mumbai
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <img onclick="callChangeImage(this.id)" id="AMD"
+                                    src="{% static 'images/ahmedabad.png' %}" alt="">
+                                <div style="font-size: small;font-weight: 400; color: black;">
+                                    Ahmedabad
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <img onclick="callChangeImage(this.id)" id="COI" src="{% static 'images/cochi.png' %}"
+                                    alt="">
+                                <div style="font-size: small;color: black;font-weight:400;">
+                                    Cochi
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <img onclick="callChangeImage(this.id)" id="NCR" src="{% static 'images/delhi.png' %}"
+                                    alt="">
+                                <div style="font-size: small;color: black;font-weight: 400;">
+                                    Delhi
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <img onclick="callChangeImage(this.id)" id="KOL" src="{% static 'images/kolkata.png' %}"
+                                    alt="">
+                                <div style="font-size: small;color: black;font-weight: 400;">
+                                    Kolkata
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <img onclick="callChangeImage(this.id)" id="CHI"
+                                    src="{% static 'images/chandigarh.png' %}" alt="">
+                                <div style="font-size: small;color: black;font-weight: 400;">
+                                    Chandigarh
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row gx-5 p-1 border bg-light karannnn" id="expandDiv"
+                            style="margin-top: 1rem;max-height:170px;overflow-y: auto;display: none;">
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                                <div class="col md-3">
+                                    Test
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="text-align: center;margin: auto;">
+                    <p id="cityListTrigger" onclick="expandCitysList(event)" style="color: red;">View All Cities</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--  -->
+    <div class="container">
+        <div class="row">
+            <div class="chatbox chatbox22 chatbox--tray">
+                <div class="chatbox__title">
+                    <h5><a href="javascript:void()">Leave a message</a></h5>
+                    <!--<button class="chatbox__title__tray">
+            <span></span>
+        </button>-->
+                    <button class="chatbox__title__close">
+                        <span>
+                            <svg viewBox="0 0 12 12" width="12px" height="12px">
+                                <line stroke="#FFFFFF" x1="11.75" y1="0.25" x2="0.25" y2="11.75"></line>
+                                <line stroke="#FFFFFF" x1="11.75" y1="11.75" x2="0.25" y2="0.25"></line>
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+                <div class="chatbox__body">
+                    <div class="chatbox__body__message chatbox__body__message--left">
+
+                        <div class="chatbox_timing">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-calendar"></i> 22/11/2018</a></li>
+                                <li><a href="#"><i class="fa fa-clock-o"></i> 7:00 PM</a></a></li>
+                            </ul>
+                        </div>
+                        <img src="https://www.gstatic.com/webp/gallery/2.jpg" alt="Picture">
+                        <div class="clearfix"></div>
+                        <div class="ul_section_full">
+                            <ul class="ul_msg">
+                                <li><strong>Person Name</strong></li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            <ul class="ul_msg2">
+                                <li><a href="#"><i class="fa fa-pencil"></i> </a></li>
+                                <li><a href="#"><i class="fa fa-trash chat-trash"></i></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="chatbox__body__message chatbox__body__message--right">
+
+                        <div class="chatbox_timing">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-calendar"></i> 22/11/2018</a></li>
+                                <li><a href="#"><i class="fa fa-clock-o"></i> 7:00 PM</a></a></li>
+                            </ul>
+                        </div>
+
+                        <img src="https://www.gstatic.com/webp/gallery/2.jpg" alt="Picture">
+                        <div class="clearfix"></div>
+                        <div class="ul_section_full">
+                            <ul class="ul_msg">
+                                <li><strong>Person Name</strong></li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            <ul class="ul_msg2">
+                                <li><a href="#"><i class="fa fa-pencil"></i> </a></li>
+                                <li><a href="#"><i class="fa fa-trash chat-trash"></i></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="chatbox__body__message chatbox__body__message--left">
+
+                        <div class="chatbox_timing">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-calendar"></i> 22/11/2018</a></li>
+                                <li><a href="#"><i class="fa fa-clock-o"></i> 7:00 PM</a></a></li>
+                            </ul>
+                        </div>
+
+                        <img src="https://www.gstatic.com/webp/gallery/2.jpg" alt="Picture">
+                        <div class="clearfix"></div>
+                        <div class="ul_section_full">
+                            <ul class="ul_msg">
+                                <li><strong>Person Name</strong></li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            <ul class="ul_msg2">
+                                <li><a href="#"><i class="fa fa-pencil"></i> </a></li>
+                                <li><a href="#"><i class="fa fa-trash chat-trash"></i></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="chatbox__body__message chatbox__body__message--right">
+
+                        <div class="chatbox_timing">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-calendar"></i> 22/11/2018</a></li>
+                                <li><a href="#"><i class="fa fa-clock-o"></i> 7:00 PM</a></a></li>
+                            </ul>
+                        </div>
+
+                        <img src="https://www.gstatic.com/webp/gallery/2.jpg" alt="Picture">
+                        <div class="clearfix"></div>
+                        <div class="ul_section_full">
+                            <ul class="ul_msg">
+                                <li><strong>Person Name</strong></li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            <ul class="ul_msg2">
+                                <li><a href="#"><i class="fa fa-pencil"></i> </a></li>
+                                <li><a href="#"><i class="fa fa-trash chat-trash"></i></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                    <div class="chatbox__body__message chatbox__body__message--left">
+
+                        <div class="chatbox_timing">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-calendar"></i> 22/11/2018</a></li>
+                                <li><a href="#"><i class="fa fa-clock-o"></i> 7:00 PM</a></a></li>
+                            </ul>
+                        </div>
+
+                        <img src="https://www.gstatic.com/webp/gallery/2.jpg" alt="Picture">
+                        <div class="clearfix"></div>
+                        <div class="ul_section_full">
+                            <ul class="ul_msg">
+                                <li><strong>Person Name</strong></li>
+                                <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                            <ul class="ul_msg2">
+                                <li><a href="#"><i class="fa fa-pencil"></i> </a></li>
+                                <li><a href="#"><i class="fa fa-trash chat-trash"></i></a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="btn-input" type="text" class="form-control input-sm chat_set_height"
+                            placeholder="Type your message here..." tabindex="0" dir="ltr" spellcheck="false"
+                            autocomplete="off" autocorrect="off" autocapitalize="off" contenteditable="true" />
+
+                        <span class="input-group-btn">
+                            <button class="btn bt_bg btn-sm" id="btn-chat">
+                                Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    {% block content %}
+    {% endblock content %}
+</body>
+<script>
+    function callChangeImage(name) {
+        console.log(name);
+        var img = document.getElementById(`${name}`);
+        img.setAttribute("src", `static/images/${name}-selected.png`)
+        $('#exampleModal2').modal('hide');
+    }
+    function expandCitysList(e) {
+        e.preventDefault();
+        var showableDiv = document.getElementById("expandDiv");
+        console.log(showableDiv.style.display);
+        if (showableDiv.style.display == "none") {
+            showableDiv.style.display = "block";
+            $("#cityListTrigger").html("Hide All Cities");
+        }
+        else {
+            showableDiv.style.display = "none";
+            $("#cityListTrigger").html("View All Cities");
+        }
+
+    }
+    (function ($) {
+        $(document).ready(function () {
+            var $chatbox = $('.chatbox'),
+                $chatboxTitle = $('.chatbox__title'),
+                $chatboxTitleClose = $('.chatbox__title__close'),
+                $chatboxCredentials = $('.chatbox__credentials');
+            $chatboxTitle.on('click', function () {
+                $chatbox.toggleClass('chatbox--tray');
+            });
+            $chatboxTitleClose.on('click', function (e) {
+                e.stopPropagation();
+                $chatbox.addClass('chatbox--closed');
+            });
+            $chatbox.on('transitionend', function () {
+                if ($chatbox.hasClass('chatbox--closed')) $chatbox.remove();
+            });
+
+        });
+    })(jQuery);
+</script>
+<style>
+    .karannnn::-webkit-scrollbar {
+        display: none;
+    }
+
+    .karannnn {
+        -ms-overflow-style: none;
+        /* IE and Edge */
+        scrollbar-width: none;
+        /* Firefox */
+    }
+</style>
+
+</html>

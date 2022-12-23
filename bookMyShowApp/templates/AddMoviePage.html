@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<script src="{% static 'js/ajaxFunctions.js' %}?ver=123232232323"></script>
+<script src="{% static 'js/AddMoviePage.js' %}?ver=1232312323112222232322"></script>
+<div class="row mb-3 text-center">
+    <div class="col-md-8 themed-grid-col">
+        <div class="pb-3">
+            <h3>Add New Movie</h3>
+        </div>
+        <div class="statusMsg"></div>
+        <form action="" id="MovieForm">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 themed-grid-col">
+                    <label for="">Title</label>
+                    <input id="title" name="title" type="text" class="form-control">
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <label for="">Description</label>
+                    <input id="desc" type="text" name="desc" class="form-control">
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <label for="">Langauges</label>
+                    <select id="langauge" class="form-select" name="langauge" aria-label="Default select example">
+                        <option selected>select</option>
+
+                    </select>
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <label for="">Genre</label>
+                    <select id="genre" name="genre" class="form-select" aria-label="Default select example">
+                        <option selected>select</option>
+                    </select>
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <label for="">Duration</label>
+                    <input id="time" name="time" type="time" class="form-control">
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <label for="">Release Date</label>
+                    <input id="date" name="date" type="date" class="form-control">
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <label for="" style="color: green;">Cinema</label>
+                    <select id="cinema" name="cinema" class="form-select" aria-label="Default select example">
+                        <option selected>select</option>
+                        {% for value in cinema %}
+                        <option value="{{value.id}}">{{value.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <label for="" style="color: green;">Screen</label>
+                    <select id="screen" name="screen" class="form-select" aria-label="Default select example">
+                        <option selected>select</option>
+                        {% for value in screen %}
+                        <option value="{{value.id}}">{{value.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <label for="">Show Starts From</label>
+                    <input id="time" name="startTime" type="time" class="form-control">
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <label for="">Show Ends At</label>
+                    <input id="time" name="endTime" type="time" class="form-control">
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <label for="">Price</label>
+                    <input id="price" name="price" type="number" class="form-control">
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <div></div><br>
+                    <button class="btn btn-success btn-sm" type="submit">Submit</button>
+                </div>
+            </div>
+    </div>
+
+    <div class="col-md-4 themed-grid-col" style="margin-top: 10px;">
+        <div id="drop-area" style="border-radius: 10px;background-color: lightgray;
+            height: 200px;width: auto;">
+            <label for="">Poster</label>
+            <input class="form-control" type="file" name="photograph" id="photo" onchange="changeImage(this);"
+                required="true" />
+        </div>
+        <div>
+            <div class="holder">
+                <img id="imgPreview" src="#" alt="pic" />
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+{% endblock content %}

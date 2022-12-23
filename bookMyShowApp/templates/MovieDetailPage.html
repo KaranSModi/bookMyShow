@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<script src="{% static 'js/DetailsPage.js' %}?ver=12232332"></script>
+<style>
+    .eQtXbA {
+        background-image: linear-gradient(90deg, rgb(26, 26, 26) 24.97%, rgb(26, 26, 26) 38.3%, rgba(26, 26, 26, 0.04) 97.47%, rgb(26, 26, 26) 100%), url("https://assets-in.bmscdn.com/iedb/movies/images/mobile/listing/xxlarge/drishyam-2-et00331997-1667547668.jpg");
+        min-height: 480px;
+        width: 92%;
+        padding: 32px 0px;
+        -webkit-box-align: center;
+        align-items: center;
+        display: flex;
+        background-repeat: no-repeat;
+        background-position: right center;
+        background-color: rgb(26, 26, 26);
+        position: relative;
+        margin: 0px auto;
+        max-width: 1440px;
+    }
+</style>
+<section style="display: block;width: 100%;background-color: rgb(26, 26, 26);;" id="mySection">
+    <div class="eQtXbA">
+        <div class="row">
+            <div class="col-sm-7">
+                <div class="card" style="margin: 0;border: 0;vertical-align: baseline;padding: 0;">
+                    <img id="posterContent" src="{% static 'images/m1.png' %}" class="card-img-top"
+                        alt="Hollywood Sign on The Hill" />
+                </div>
+            </div>
+        </div>
+        <h1 style="overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: initial;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;color: rgb(255, 255, 255);
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 42px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 3;" id="titleContent"></h1>
+    </div>
+    <a id="redirectToShowsPage" href="{% url 'TheaterSelectionPage' %}"> <button
+            style="margin-left: 100px;margin-bottom:20px;" class="btn btn-md btn-danger">Book
+            Tickets</button></a>
+</section>
+<section style="margin: 0;padding: 0;margin-top: 1rem;">
+    <div class="container px-4 text-left">
+        <div class="row gx-4 p-1 border bg-light">
+            <div class="col">
+                <h3 style="color: black;">About The Movie</h3>
+                <p id="descContent"></p>
+            </div>
+        </div>
+    </div>
+    <div class="container px-4 text-left" style="margin-top: 1rem;">
+        <div class="row gx-4 p-1 border bg-light">
+            <div class="col">
+                <h3 style="color: black;">Cast</h3>
+                <div class="row gx-4 p-1 border bg-light">
+                    <div class="col">
+                        <img src="{% static 'images/pic1.png' %}" class="rounded-circle" alt="Cinque Terre"
+                            width="100px" height="100px">
+                        <h4>Ajay Devgan</h4>
+                    </div>
+                    <div class="col">
+                        <img src="{% static 'images/pic2.png' %}" class="rounded-circle" alt="Cinque Terre"
+                            width="100px" height="100px">
+                        <h4> sammi kapoor</h4>
+                    </div>
+                    <div class="col">
+                        <img src="{% static 'images/pic3.png' %}" class="rounded-circle" alt="Cinque Terre"
+                            width="100px" height="100px">
+                        <h4>taboo</h4>
+                    </div>
+                    <div class="col">
+                        <img src="{% static 'images/pic4.png' %}" class="rounded-circle" alt="Cinque Terre"
+                            width="100px" height="100px">
+                        <h4>rajat kapoor</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+{% endblock content %}
