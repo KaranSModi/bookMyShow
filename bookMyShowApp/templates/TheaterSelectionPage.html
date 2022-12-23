@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="{% static 'js/TheaterSelectionPage.js' %}?ver=1234232356789"></script>
+<div class=" container px-1 text-left">
+    <div class="row gx-5 p-3 border bg-dark">
+        <div class="col-lg">
+            <h3 id="movieTitle" style="color: white;">a</h3>
+            <li id="movieGenres" class="list-group-item p-1 bg-dark">
+                <!-- <span class="badge rounded-pill text-bg-secondary">Drama</span> -->
+                <span class="badge rounded-pill text-bg-secondary">Thriller</span>
+                <span class="badge rounded-pill text-bg-secondary">Mystery</span>
+            </li>
+        </div>
+    </div>
+</div>
+<div class="container px-1 text-end">
+    <div class="row gx-5 p-1 border bg-light">
+        <div class="col-lg">
+            <h5 id="screenShowDate" style="color: black;">Hindi-2D</h5>
+            <li class="list-group-item p-1 bg-light" style="font-size: x-small;">
+                <span class="logged-in" style="color: green;">●</span>&nbsp;AVAILABLE&nbsp;
+                <span class="away" style="color: orangered;">●</span>&nbsp;FAST FILLING&nbsp;
+            </li>
+        </div>
+    </div>
+</div>
+<section id="maindiv">
+    <div class="container px-1 text-start" style="margin-top: 1rem;" id="divForRow">
+        <!-- <div class="row gx-5 p-1 border bg-light">
+            <div class="col-lg">
+                <div style="font-size: small;color: black;font-weight: bold;">
+                    1, Newfangled Miniplex: Mondeal Retail
+                    Park
+                </div>
+            </div>
+            <div class="col-lg">
+                <li class="list-group-item p-1 bg-light">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal1"
+                        class="btn btn-outline-secondary" style="color: green;">12:00 PM</button>
+                    <button type="button" class="btn btn-outline-secondary" style="color: green;">2:00 PM</button>
+                    <button type="button" class="btn btn-outline-secondary" style="color: green;">4:00 PM</button>
+                    <button type="button" class="btn btn-outline-secondary" style="color: green;">6:00 PM</button>
+                </li>
+            </div>
+
+        </div> -->
+    </div>
+</section>
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Select Seats</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center" id="showBookingStatusAlert">
+                <div>
+                    <p id="showAvailableSeats" style="color: green;">
+                    </p>
+                </div>
+                <div class="container px-4 text-center">
+                    <div>
+                        <h4>How Many Seats ?</h4><br>
+                        <div style="text-align: center;" id="vectorDiv">
+                        </div>
+                        <li class="list-group-item p-1 bg-light" id="seatButtons">
+                            <!-- <button onmouseenter="showVectors(event,'i1')" value="1" type="button"
+                                class="btn btn-md  btn-outline-danger" style="color:black"
+                                onclick="bookSeat(event,this)">1
+                            </button>&nbsp;
+                            <button onmouseenter="showVectors(event,'i2')" type="button" value="2"
+                                class="btn btn-md btn-outline-danger" style="color:black"
+                                onclick="bookSeat(event,this)">2
+                            </button>&nbsp;
+                            <button onmouseenter="showVectors(event,'i3')" type="button" value="3"
+                                class="btn btn-md btn-outline-danger" style="color:black"
+                                onclick="bookSeat(event,this)">3
+                            </button>&nbsp;
+                            <button onmouseenter="showVectors(event,'i4')" type="button" value="4"
+                                class="btn btn-md btn-outline-danger" style="color:black"
+                                onclick="bookSeat(event,this)">4
+                            </button>&nbsp;
+                            <button type="button" class="btn btn-md btn-outline-danger" value="5" style="color:black"
+                                onclick="bookSeat(event,this)">5
+                            </button>&nbsp;
+                            <button type="button" class="btn btn-md btn-outline-danger" value="6" style="color:black"
+                                onclick="bookSeat(event,this)">6
+                            </button>&nbsp;
+                            <button type="button" class="btn btn-md btn-outline-danger" value="7" style="color:black"
+                                onclick="bookSeat(event,this)">7
+                            </button>&nbsp;
+                            <button type="button" class="btn btn-md btn-outline-danger" value="8" style="color:black"
+                                onclick="bookSeat(event,this)">8
+                            </button>&nbsp; -->
+                        </li><br>
+                        <button id="muBtn" type="button" class="btn btn-success" data-bs-dismiss="modal">Pay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Select Seats</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="container px-4 text-center">
+                    <p>example</p>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function showVectors(e, id) {
+                e.preventDefault();
+                document.getElementById("vectorDiv").innerHTML = "";
+                var mainDiv = document.getElementById("vectorDiv");
+                var imgs = document.createElement("img");
+                imgs.setAttribute("src", `/static/images/${id}.png`)
+                imgs.style.margin = "auto";
+                mainDiv.appendChild(imgs)
+            }
+        </script>
+        {% endblock content %}
