@@ -511,7 +511,7 @@
                 <ul class="navbar-nav gap-3 ">
                     <li class="nav-item">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" aria-expanded="false"
+                        <a id="showSelectedCity" class="nav-link dropdown-toggle" href="#" role="button" aria-expanded="false"
                             style="color: white;" data-bs-toggle="modal" data-bs-target="#exampleModal2">
                             Ahmedabad
                         </a>
@@ -535,7 +535,7 @@
         </div>
 
     </nav>
-    <div id="mySidenav" class="sidenav">
+    <div id="mySidenav" class="sidenav" onmouseleave="closeNav()">
 
         <a href=""> <img src="{% static 'images/BMS_logo_new.png' %}" alt="" srcset=""></a>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
