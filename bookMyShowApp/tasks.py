@@ -16,6 +16,7 @@ def test_func():
         booking_obj = bookings[i]
         if date_time_current > booking_obj.get("seat_block_duration"):
             obj = Booking.objects.get(id=booking_obj.get("id"))
-            obj.delete()
-            return True
+            if obj.payment_status != True:
+                obj.delete()
+                return True
     return False
