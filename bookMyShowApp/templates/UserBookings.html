@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
+{% load qr_code %}
 <style>
     * {
         box-sizing: border-box;
@@ -146,7 +147,8 @@
     }
 
     .container .item .tickets {
-        background: #777
+        background: black;
+        font-weight: 400;
     }
 
     .container .item .booked {
@@ -200,10 +202,10 @@
     }
 
     .loc p:hover {
-        transform: perspective(50px) rotate(0deg) skew(1deg) translate(0, 0);
+        /* transform: perspective(50px) rotate(0deg) skew(1deg) translate(0, 0);
         transition: .5s;
         box-shadow: -1px 2px 20px rgb(0, 0, 0, 0.5);
-        animation: myanimation 3s infinite;
+        animation: myanimation 3s infinite; */
     }
 
     @keyframes myanimation {
@@ -227,6 +229,7 @@
             background-color: red;
         }
     }
+
 </style>
 <link href="https://fonts.googleapis.com/css?family=Cabin|Indie+Flower|Inknut+Antiqua|Lora|Ravi+Prakash"
     rel="stylesheet">
@@ -241,7 +244,8 @@
         {% for i in bookings %}
         <div class="item">
             <div class="item-right">
-                <!-- <img src="{{i.show_movie.movie.poster.url}}" alt="test alt tag" height="200px" width="100px" /> -->
+              {% qr_from_text i.show_movie.movie.title size="T" %}
+              <!-- <img src="{{i.show_movie.movie.poster.url}}" alt="test alt tag" height="200px" width="100px" /> -->
                 <h2 class="num"></h2>
                 <p class="day" style="font-size: small;"></p>
                 <span class="up-border"></span>
@@ -251,13 +255,14 @@
             <div class="item-left" style="position: relative;">
                 <p class="event">Movie</p>
                 <h2 class="title">
-                    <a href="#" class="mytooltip">{{i.show_movie.movie.title}}
-                        <span id="imgShowSpan">
+                    {{i.show_movie.movie.title}}
+                    <!-- <a href="#" class="mytooltip"> -->
+                        <!-- <span id="imgShowSpan">
                             <img src="{{i.show_movie.movie.poster.url}}" class="fade-in" height="150px"
                                 width="100px"><br />
                             {{i.show_movie.movie.title}}
-                        </span>
-                    </a>
+                        </span> -->
+                    <!-- </a> -->
                 </h2>
                 <div class="sce">
                     <div class="icon">
@@ -273,7 +278,7 @@
                     <p>{{i.show_movie.cinema.name}}</p>
                 </div>
                 <div class="fix"></div>
-                <button class="tickets">{{i.total}}</button>
+                <button class="tickets">{{i.total}} ₹</button>
             </div> <!-- end item-right -->
         </div>
         {% endfor %}

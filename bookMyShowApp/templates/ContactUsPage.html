@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+    #forBanner {
+        width: 100%;
+        padding: 0px;
+        display: flex;
+        background-color: rgb(242, 245, 249);
+    }
+
+    .jajyUZ {
+        width: 100%;
+        height: 360px;
+        background: url(//assets-in.bmscdn.com/webin/static/contact-us/contact-us-banner.jpg) center center / cover no-repeat;
+        display: flex;
+        -webkit-box-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        align-items: center;
+    }
+
+    .doFfSl {
+        color: white;
+        display: block;
+        font-size: 88px;
+        font-weight: 300;
+    }
+
+    .gUoOkW {
+        color: whitesmoke;
+        display: block;
+        font-weight: 300;
+
+    }
+</style>
+<div id="forBanner">
+    <div class="jajyUZ">
+        <div class="hdzVNz">
+            <span class="doFfSl">Contact Us</span>
+            <h3 class="gUoOkW">Drop us a line, get in touch!</h3>
+        </div>
+    </div>
+</div>
+<br>
+<div class="container">
+    <h4 style="font-weight: 500;color: darkslategray;font-size: large;">Write to us by filling in the form below</h4>
+    <span style="border-style:dashed;border: 1rem;color: rgb(165, 12, 12);">――</span>
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <label class="form-label" style="font-size: small;font-weight: 400;">Select Any Reason</label>
+                <select class="form-select" aria-label="Default select example">
+                    <option selected>For Customer Queries</option>
+                    <option value="1">For Business enquiries</option>
+                    <option value="2">For Media/Press enquiries</option>
+                    <option value="3">For other enquiries</option>
+                    <option value="3">I want to host my event on BookMyShow</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" style="font-size: small;font-weight: 400;"><span
+                        style="padding-right:2px;color: rgb(174, 30, 49);">*</span>Name</label>
+                <input class="form-control form-control-md" type="text" placeholder="Please Enter Your Name"
+                    aria-label=".form-control-sm example">
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <div class="mb-3">
+                        <label class="form-label" style="font-size: small;font-weight: 400;"><span
+                                style="padding-right:2px;color: rgb(174, 30, 49);">*</span>Email</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1"
+                            placeholder="Please Enter Your Email">
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="mb-3">
+                        <label class="form-label" style="font-size: small;font-weight: 400;"><span
+                                style="padding-right:2px;color: rgb(174, 30, 49);">*</span>Phone</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control"
+                                aria-label="Dollar amount (with dot and two decimal places)"
+                                placeholder="eg: 91480XXXXX">
+                            <span class="input-group-text"><img alt="" width="24px" height="24px"
+                                    class="sc-eykeme-1 jbzDld" src="https://assets-in.bmscdn.com/members/country/in.png"
+                                    style="opacity: 1;"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-10">
+                    <div class="mb-3">
+                        <label class="form-label" style="font-size: small;font-weight: 400;">Message</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                            placeholder="Type message here"></textarea>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <button type="button" class="btn btn-outline-danger btn-lg w-75"
+                        style="font-weight: 300;">Reset</button>
+                </div>
+                <div class="col-5">
+                    <button type="button" class="btn btn-secondary btn-lg w-75"
+                        style="font-weight: 300;">Submit</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-6" style="padding-left: 10%;">
+            <h4 style="font-size: medium;color: gray;font-weight: 600;font-style: italic;">Contact Us</h4>
+            <span style="border-style:dashed;border: 1rem;color: rgb(165, 12, 12);">――</span>
+            <div class="p-3 border bg-white" style="font-size: small;color: rgb(66, 66, 66);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="36" height="16" fill="currentColor"
+                    class="bi bi-pin-map-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M3.1 11.2a.5.5 0 0 1 .4-.2H6a.5.5 0 0 1 0 1H3.75L1.5 15h13l-2.25-3H10a.5.5 0 0 1 0-1h2.5a.5.5 0 0 1 .4.2l3 4a.5.5 0 0 1-.4.8H.5a.5.5 0 0 1-.4-.8l3-4z" />
+                    <path fill-rule="evenodd"
+                        d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999z" />
+                </svg>Big Tree Entertainment
+                Private Limited Ground Floor, Wajeda House, Gulmohar
+                Cross Road No. 7, Juhu Scheme, Mumbai, Maharashtra - 400049
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

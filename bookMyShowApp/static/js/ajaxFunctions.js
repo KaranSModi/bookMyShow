@@ -217,7 +217,7 @@ function sendChatBotMessage(thiss, e) {
             <li><a href="#"><i class="fa fa-clock-o"></i> 7:00 PM</a></a></li>
         </ul>
     </div>
-    <img src="https://www.gstatic.com/webp/gallery/2.jpg" alt="Picture">
+    <img src="/static/images/chatbotLogo.png" alt="Picture">
     <div class="clearfix"></div>
     <div class="ul_section_full">
         <ul class="ul_msg">
@@ -241,7 +241,7 @@ function sendChatBotMessage(thiss, e) {
             <li><a href="#"><i class="fa fa-clock-o"></i> 7:00 PM</a></a></li>
         </ul>
     </div>
-    <img src="https://www.gstatic.com/webp/gallery/2.jpg" alt="Picture">
+    <img src="/static/images/chatbotLogo.png" alt="Picture">
     <div class="clearfix"></div>
     <div class="ul_section_full">
         <ul class="ul_msg">

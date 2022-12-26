@@ -130,6 +130,7 @@ def success(request):
     paid_booking = Booking.objects.get(id=request.session['bookingId'])
     paid_booking.payment_status = True
     paid_booking.save()
+    del request.session['bookingId']
     return render(request,'success.html')
 
 def cancel(request):
@@ -137,6 +138,10 @@ def cancel(request):
     delete_booking.delete()
     del request.session['bookingId']
     return render(request,'cancel.html')
+
+
+def contact_us(request):
+    return render(request,'ContactUsPage.html')
 
 @csrf_exempt
 def create_checkout_session(request):

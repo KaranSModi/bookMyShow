@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import RegisterPage,LoginPage,HomePage,MovieDetailPage,TheaterSelectionPage,AddMoviePage,BookingPage,UserRegisterViewSet,UserLoginView,UserLogoutView,SeatSelectionPage,UserBookingView,create_checkout_session,success,webhook,cancel
+from .views import RegisterPage,LoginPage,HomePage,MovieDetailPage,TheaterSelectionPage,AddMoviePage,BookingPage,UserRegisterViewSet,UserLoginView,UserLogoutView,SeatSelectionPage,UserBookingView,create_checkout_session,success,webhook,cancel,contact_us
 from .api import MoviesApi,ScreenMovieApi,ChoicesApi,BookingApi,ChatBotApi
 from rest_framework import routers
 
@@ -23,7 +23,8 @@ urlpatterns = [
     path('success.html/', success,name='success'),
     path('cancel.html/', cancel,name='cancel'),
     path('webhooks/stripe/', webhook,name='webhook'),
-    path('chatbot/api/',ChatBotApi.as_view(),name='ChatBotApi')
+    path('chatbot/api/',ChatBotApi.as_view(),name='ChatBotApi'),
+    path('Contact/Us/',contact_us,name='ContactUsPage')
     # path('check_seats_revert/',check_seats_revert,name='check_seats_revert')
 ]
 

@@ -74,3 +74,6 @@ def get_tokens_for_user(user):
         'access': str(refresh.access_token),
     }
     
+    
+def create_qr_for_booking(booking_data):
+    pass
