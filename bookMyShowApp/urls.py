@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import RegisterPage,LoginPage,HomePage,MovieDetailPage,TheaterSelectionPage,AddMoviePage,BookingPage,UserRegisterViewSet,UserLoginView,UserLogoutView,SeatSelectionPage,UserBookingView,create_checkout_session,success,webhook,cancel,contact_us
-from .api import MoviesApi,ScreenMovieApi,ChoicesApi,BookingApi,ChatBotApi
+from .views import RegisterPage,LoginPage,HomePage,MovieDetailPage,TheaterSelectionPage,AddMoviePage,BookingPage,UserRegisterViewSet,UserLoginView,UserLogoutView,SeatSelectionPage,UserBookingView,create_checkout_session,success,webhook,cancel,contact_us,AccountPage
+from .api import MoviesApi,ScreenMovieApi,ChoicesApi,BookingApi,ChatBotApi,ResetPasswordApi
 from rest_framework import routers
 
 router = routers.SimpleRouter()
@@ -24,8 +24,9 @@ urlpatterns = [
     path('cancel.html/', cancel,name='cancel'),
     path('webhooks/stripe/', webhook,name='webhook'),
     path('chatbot/api/',ChatBotApi.as_view(),name='ChatBotApi'),
-    path('Contact/Us/',contact_us,name='ContactUsPage')
-    # path('check_seats_revert/',check_seats_revert,name='check_seats_revert')
+    path('Contact/Us/',contact_us,name='ContactUsPage'),
+    path('Reset/Password/',ResetPasswordApi.as_view(),name='ResetPasswordApi'),
+    path('Account/Manage/',AccountPage,name='AccountPage')
 ]
 
 urlpatterns += router.urls

@@ -206,3 +206,5 @@ def webhook(request):
         return HttpResponse(status=200)
     
 
+def AccountPage(request):
+    return render(request,'AccountManagementPage.html')

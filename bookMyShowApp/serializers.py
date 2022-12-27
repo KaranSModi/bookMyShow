@@ -95,3 +95,7 @@ class BookingSerializer(serializers.ModelSerializer):
         demo.show_movie.save()
         demo.save()
         return demo
+    
+
+
+

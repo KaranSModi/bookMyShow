@@ -177,6 +177,7 @@ function callUserAuthenticationHandler(thiss, e) {
                     })
                 })
                 alert("Login Successfull");
+                localStorage.setItem("signed in", true);
             })
         }
     })

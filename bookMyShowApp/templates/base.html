@@ -16,7 +16,7 @@
         crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script
-        src="{% static 'js/ajaxFunctions.js' %}?ver=1234"></script>
+        src="{% static 'js/ajaxFunctions.js' %}?ver=12345"></script>
 </head>
 
 <style>
@@ -546,7 +546,7 @@
         <a href=""> <img src="{% static 'images/BMS_logo_new.png' %}" alt="" srcset=""></a>
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="{% url 'UserBookingView' %}">My Bookings</a>
-        <a href="#">Account</a>
+        <a href="{% url 'AccountPage' %}">Account</a>
         <a href="{% url 'ContactUsPage' %}">Contact us</a>
         <a href="#">Get Support</a>
     </div>

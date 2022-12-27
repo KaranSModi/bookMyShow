@@ -1,3 +1,4 @@
+from base64 import urlsafe_b64encode
 from django.shortcuts import render
 from django.views.generic import View
 from .models import Booking, User, Banner, Movie, ScreenMovie
@@ -12,6 +13,7 @@ from rest_framework.views import APIView
 from rest_framework import permissions
 from rest_framework.permissions import AllowAny,IsAuthenticated
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.views.generic import View
 from django.views.decorators.csrf import csrf_exempt
 from .utils import get_data_for_booking, create_screens_slots
@@ -21,7 +23,6 @@ from core.settings import STRIPE_SECRET_KEY
 import stripe
 import datetime
 import time
-
 stripe.api_key = STRIPE_SECRET_KEY
 
 class MoviesApi(viewsets.ModelViewSet):
@@ -118,12 +119,6 @@ class BookingApi(viewsets.ModelViewSet):
         return Response({"status":"booked","details":[{"bookingId":booking_obj.id,"total":booking_obj.total,}]})
 
    
-        
-        
-        
-
-
-
 class ChatBotApi(APIView):
     
     def get(self,request):
@@ -136,3 +131,17 @@ class ChatBotApi(APIView):
         print(request.POST)
         return Response({"message":"hello"})
     
+    
+class ResetPasswordApi(APIView):
+
+
+    def get(self,request):
+        print(request,'req')
+        return Response({"message":"success"})
+    
+    def post(self,request):
+        print(request)
+        return Response({"message":"put"})
+    
+        
+        
