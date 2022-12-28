@@ -169,8 +169,9 @@ function callUserAuthenticationHandler(thiss, e) {
             post("/Signin/", dataObject, function (res) {
                 console.log(res, '??????');
                 setAuthTokensForUser(res.message);
-                $("#userAuthButton").empty()
-                $("#userAuthButton").html("SignOut")
+                $("#userAuthButton").empty();
+                $("#userAuthButton").html("SignOut");
+                $("#userAuthButton").attr("onclick","logout");
                 $("#userAuthButton").on("click", function () {
                     post("/Signout/", {}, function (res) {
                         console.log(res, 'res');
@@ -256,5 +257,12 @@ function sendChatBotMessage(thiss, e) {
     </div>
 
 </div>`)
+    })
+}
+
+
+function logout() {
+    post("/Signout/", {}, function successfullLogout(res) {
+        console.log(res, 'logged out');
     })
 }
