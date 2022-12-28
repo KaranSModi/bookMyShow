@@ -41,7 +41,7 @@ function getButtions(data) {
     fullstr = ""
     // setDateOfShow = $("#screenShowDate").html(`${(data[0]).date}`);
     for (i of data) {
-        fullstr += `<button title="${i.start_duration} - ${i.end_duration}" type="button" onclick=getAvailableSeatsForScreen(${i.id}) data-bs-toggle="modal" data-bs-target="#exampleModal1"
+        fullstr += `<button title="${i.start_duration} - ${i.end_duration}\n GOLD - ₹${i.seat_price}" type="button" onclick=getAvailableSeatsForScreen(${i.id}) data-bs-toggle="modal" data-bs-target="#exampleModal1"
             class="btn btn-outline-secondary" style="color: green;margin-left:5px;">${i.start_duration}</button>`
     }
     return fullstr
@@ -54,7 +54,7 @@ function getAvailableSeatsForScreen(id) {
         $("#showAvailableSeats").empty();
         console.log('available seats', res.availableSeats);
         $("#showAvailableSeats").append(`Avalilabe Seats <br/>${res.availableSeats}`)
-
+        
         for (let index = 1; index <= 8; index++) {
             let disabled = 'disabled';
             if (index <= res.availableSeats) {

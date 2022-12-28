@@ -12,3 +12,4 @@ admin.site.register(City)
 admin.site.register(Booking)
 
 
+admin.site.site_header = 'BookMyShow'

@@ -12,7 +12,7 @@ def get_data_for_booking(movie_id):
     new_try = list(queryset.filter(movie=movie_id).values_list("cinema__id","cinema__name").distinct())
     final_list = []
     for screenss in new_try:
-        data = list(ScreenMovie.objects.filter(Q(cinema=screenss[0]),Q(movie=movie_id)).values("id","start_duration","end_duration","date"))
+        data = list(ScreenMovie.objects.filter(Q(cinema=screenss[0]),Q(movie=movie_id)).values("id","start_duration","end_duration","date","seat_price"))
         final_list.append({"cinema":screenss[1],"slots":data})
     return final_list
 
