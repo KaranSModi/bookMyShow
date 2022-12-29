@@ -77,3 +77,20 @@ def get_tokens_for_user(user):
     
 def create_qr_for_booking(booking_data):
     pass
+
+
+
+
+def check_and_set_new_user_password(user,old_password,new_password):
+    try:
+        existing_user = User.objects.get(id=user.id)
+        if existing_user.password == old_password:
+            existing_user.set_password(new_password)
+            existing_user.save()            
+            return {"message":"Succefully Updated Your Password"}
+        else:
+            
+            return {"message":"Password Didn't Match With Your Old Password"}
+    
+    except:
+        return {"message":"something went wrong"}

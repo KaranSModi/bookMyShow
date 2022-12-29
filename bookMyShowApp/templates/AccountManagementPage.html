@@ -17,14 +17,15 @@
             </button>
         </div>
     </div>
-    <div class="container text-center">
-        <div class="row mb-3 text-center">
+    <div class="container text-center" id="parentDiv">
+        <div class="row mb-3 text-center" >
             <div class="col-md-6 themed-grid-col" style="background-color:#212529;border-radius: 50px;">
                 <div class="text-center" style="padding: 5px;">
                     <div style="font-size: large;color: aliceblue;">Account</div><br>
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-md-6">
-                            <p style="color: orange;font-weight: 300;">Reset Your Account Password</p>
+                            <p style="color: orange;font-weight: 300;" onclick="ResetPassword()">Reset Your Account
+                                Password</p>
                         </div>
                         <div class="col-md-6">
                             <p style="color: orange;font-weight: 300;">Change Your Account Username</p>
@@ -44,5 +45,20 @@
 </main>
 
 </div>
+<script>
+    function ResetPassword() {
+        $("#parentDiv").append(`
+        <div class="col-md-6 themed-grid-col"><form>
+            <div class="mb-3 row">
+            <div class="col-sm-10">
+            <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+            </div>
+            </div>
+            </form></div>`)
+        post("/Reset/Password/", {}, function (res) {
+            console.log('res', res);
 
+        })
+    }
+</script>
 {% endblock content %}

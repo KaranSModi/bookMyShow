@@ -16,7 +16,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.views.generic import View
 from django.views.decorators.csrf import csrf_exempt
-from .utils import get_data_for_booking, create_screens_slots
+from .utils import get_data_for_booking, create_screens_slots,check_and_set_new_user_password
 from .choices import LANGAUGE_CHOICES, GENDER_CHOICES, GENRE_CHOICES
 from django.forms.models import model_to_dict
 from core.settings import STRIPE_SECRET_KEY
@@ -133,7 +133,8 @@ class ChatBotApi(APIView):
     
     
 class ResetPasswordApi(APIView):
-
+    
+    permission_classes = [IsAuthenticated]
 
     def get(self,request):
         print(request,'req')
@@ -141,7 +142,7 @@ class ResetPasswordApi(APIView):
     
     def post(self,request):
         print(request)
-        return Response({"message":"put"})
+        check_and_set_new_user_password(request.user,request.POST,request.POST)
+        return Response({"message":"success"})
     
-        
         
