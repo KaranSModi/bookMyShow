@@ -208,4 +208,4 @@ def webhook(request):
     
 
 def AccountPage(request):
-    return render(request,'AccountManagementPage.html',{"user":request.user.username})
+    return render(request,'AccountManagementPage.html')

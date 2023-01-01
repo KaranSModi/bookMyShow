@@ -141,8 +141,8 @@ class ResetPasswordApi(APIView):
         return Response({"message":"success"})
     
     def post(self,request):
-        print(request)
-        check_and_set_new_user_password(request.user,request.POST,request.POST)
-        return Response({"message":"success"})
+        print(dict(request.data))
+        return Response(check_and_set_new_user_password(request.user,(dict(request.data)).get("oldPassOfUser"),(dict(request.data)).get("NewPassOfUser"))
+)
     
         
