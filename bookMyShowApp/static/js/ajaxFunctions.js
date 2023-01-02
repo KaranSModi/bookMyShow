@@ -171,7 +171,7 @@ function callUserAuthenticationHandler(thiss, e) {
                 setAuthTokensForUser(res.message);
                 $("#userAuthButton").empty();
                 $("#userAuthButton").html("SignOut");
-                $("#userAuthButton").attr("onclick","logout");
+                $("#userAuthButton").attr("onclick", "logout");
                 $("#userAuthButton").on("click", function () {
                     post("/Signout/", {}, function (res) {
                         console.log(res, 'res');
@@ -232,7 +232,7 @@ function sendChatBotMessage(thiss, e) {
         </ul>
     </div>
 </div>`)
-    post("/chatbot/api/", dataMessage, function (res) {
+    post("/simple_chatbot/", dataMessage, function (res) {
         console.log('server responded', res);
 
         $('.chatbox__body').append(`<div class="chatbox__body__message chatbox__body__message--left">

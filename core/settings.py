@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     'django_celery_results',
     'django_celery_beat',
     'qr_code',
+    'simple_chatbot',
 ]
 
 MIDDLEWARE = [
@@ -176,3 +177,11 @@ CELERY_TIMEZONE = 'Asia/Kolkata'
 CELERY_RESULT_BACKEND = 'django-db'
 
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+
+SIMPLE_CHATBOT = {
+    'responses': (
+        ("bookMyShowApp.responses.GreetingResponse", "Greeting"),
+        ("bookMyShowApp.responses.GoodbyeResponse", "Goodbye"),
+    ),
+}
