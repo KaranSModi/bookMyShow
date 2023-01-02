@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <style>
     #forBanner {
         width: 100%;
@@ -49,19 +50,20 @@
     <div class="row">
         <div class="col-6">
             <div class="mb-3">
-                <label class="form-label" style="font-size: small;font-weight: 400;">Select Any Reason</label>
-                <select class="form-select" aria-label="Default select example">
-                    <option selected>For Customer Queries</option>
-                    <option value="1">For Business enquiries</option>
-                    <option value="2">For Media/Press enquiries</option>
-                    <option value="3">For other enquiries</option>
-                    <option value="3">I want to host my event on BookMyShow</option>
-                </select>
+                <form action="mailto:karan.modi@trootech.com" method="post" enctype="text/plain">
+                    <label class="form-label" style="font-size: small;font-weight: 400;">Select Any Reason</label>
+                    <select name="reason" class="form-select" aria-label="Default select example">
+                        <option selected>For Customer Queries</option>
+                        <option value="1">For Business enquiries</option>
+                        <option value="2">For Media/Press enquiries</option>
+                        <option value="3">For other enquiries</option>
+                        <option value="3">I want to host my event on BookMyShow</option>
+                    </select>
             </div>
             <div class="mb-3">
                 <label class="form-label" style="font-size: small;font-weight: 400;"><span
                         style="padding-right:2px;color: rgb(174, 30, 49);">*</span>Name</label>
-                <input class="form-control form-control-md" type="text" placeholder="Please Enter Your Name"
+                <input name="name" class="form-control form-control-md" type="text" placeholder="Please Enter Your Name"
                     aria-label=".form-control-sm example">
             </div>
             <div class="row">
@@ -69,7 +71,7 @@
                     <div class="mb-3">
                         <label class="form-label" style="font-size: small;font-weight: 400;"><span
                                 style="padding-right:2px;color: rgb(174, 30, 49);">*</span>Email</label>
-                        <input type="email" class="form-control" id="exampleFormControlInput1"
+                        <input name="usermail" type="email" class="form-control" id="exampleFormControlInput1"
                             placeholder="Please Enter Your Email">
                     </div>
                 </div>
@@ -80,7 +82,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control"
                                 aria-label="Dollar amount (with dot and two decimal places)"
-                                placeholder="eg: 91480XXXXX">
+                                placeholder="eg: 91480XXXXX" name="phonenumber">
                             <span class="input-group-text"><img alt="" width="24px" height="24px"
                                     class="sc-eykeme-1 jbzDld" src="https://assets-in.bmscdn.com/members/country/in.png"
                                     style="opacity: 1;"></span>
@@ -93,7 +95,7 @@
                     <div class="mb-3">
                         <label class="form-label" style="font-size: small;font-weight: 400;">Message</label>
                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
-                            placeholder="Type message here"></textarea>
+                            placeholder="Type message here" name="message"></textarea>
                     </div>
                 </div>
                 <div class="col-5">
@@ -101,8 +103,9 @@
                         style="font-weight: 300;">Reset</button>
                 </div>
                 <div class="col-5">
-                    <button type="button" class="btn btn-secondary btn-lg w-75"
-                        style="font-weight: 300;">Submit</button>
+                    <button type="submit" class="btn btn-secondary btn-lg w-75" style="font-weight: 300;"
+                        value="Send">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
