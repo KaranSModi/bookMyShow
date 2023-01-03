@@ -96,3 +96,6 @@ class Booking(models.Model):
     def __str__(self):
         return f"{self.user} - {self.show_movie.movie.title} - {self.total}"
     
+    
+class ErrorLog(models.Model):
+    error_data = models.JSONField(default={})

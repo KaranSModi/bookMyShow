@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User,Banner,Movie,ScreenMovie,Screens,Cinema,City,Booking
+from .models import User,Banner,Movie,ScreenMovie,Screens,Cinema,City,Booking,ErrorLog
 # Register your models here.
 
 admin.site.register(User)
@@ -10,6 +10,7 @@ admin.site.register(Screens)
 admin.site.register(Cinema)
 admin.site.register(City)
 admin.site.register(Booking)
+admin.site.register(ErrorLog)
 
 
 admin.site.site_header = 'BookMyShow'
