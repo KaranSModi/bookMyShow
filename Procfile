@@ -1,3 +1,3 @@
 web: python manage.py migrate && gunicorn core.wsgi
-worker: celery worker --app=bookMyShowApp.tasks.app
-beat: celery --app=bookMyShowApp.tasks.app
+celery: celery -A core beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+celery: celery -A core.celery worker -l info
