@@ -7,7 +7,6 @@ import json
 
 @shared_task(name='revert_seats_func')
 def test_func():
-    print("121212121")
     utc = pytz.UTC
     bookings = list(Booking.objects.all().values("id","created_at","seat_block_duration"))
     date_time_current = datetime.now()
