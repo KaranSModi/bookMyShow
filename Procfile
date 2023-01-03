@@ -1,2 +1,2 @@
 web: python manage.py migrate && gunicorn core.wsgi
-celery: celery -A core beat -l INFO
+celery: elery -A core worker -l info -B
