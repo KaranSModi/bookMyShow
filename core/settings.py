@@ -170,7 +170,7 @@ STRIPE_SECRET_KEY = 'sk_test_51Lp4iHSHgSlrTPSRHlezhJ5L8alt1l1SLqEM8rvXUigD1DI8sP
 
 
 
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
+CELERY_BROKER_URL = 'redis://default:up8GbwTudTTh9bV4twxk@containers-us-west-157.railway.app:7592'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TASK_SERIALIZER = 'json'
